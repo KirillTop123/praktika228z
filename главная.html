@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ренова+ — Строительная компания</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            background: #f4f7fa;
+        }
+
+        .header {
+            background: #1e3a5f;
+            color: white;
+            padding: 15px 30px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .logo {
+            background: white;
+            width: 150px;
+            height: 100px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .logo img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .logo-placeholder {
+            font-size: 42px;
+            font-weight: bold;
+            color: #1e3a5f;
+        }
+
+        .company-name {
+            font-size: 32px;
+            font-weight: bold;
+            letter-spacing: 2px;
+            text-align: center;
+            flex-grow: 1;
+        }
+
+        .spacer {
+            width: 150px;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 50px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+
+        .home-section {
+            text-align: center;
+        }
+
+        .home-section h1 {
+            font-size: 36px;
+            color: #1e3a5f;
+            margin-bottom: 20px;
+        }
+
+        .home-section p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 60px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-top: 20px;
+        }
+
+        .btn {
+            background: #2c7da0;
+            color: white;
+            padding: 18px 40px;
+            font-size: 18px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        .btn:hover {
+            background: #1e5a7a;
+            transform: translateY(-2px);
+        }
+
+        .projects-section h1, .contacts-section h1 {
+            font-size: 32px;
+            color: #1e3a5f;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        /* Панель выбора тестов */
+        .test-panel {
+            background: #e8f0fe;
+            border-radius: 16px;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        .test-panel p {
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: #1e3a5f;
+        }
+
+        .test-buttons {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .test-btn {
+            background: white;
+            border: 1px solid #2c7da0;
+            color: #2c7da0;
+            padding: 6px 14px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: 0.2s;
+        }
+
+        .test-btn:hover {
+            background: #2c7da0;
+            color: white;
+        }
+
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 35px;
+        }
+
+        .filter-btn {
+            background: #e0e7ef;
+            color: #1e3a5f;
+            padding: 10px 28px;
+            font-size: 16px;
+            border: none;
+            border-radius: 40px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+
+        .filter-btn.active {
+            background: #2c7da0;
+            color: white;
+        }
+
+        .filter-btn:hover {
+            background: #2c7da0;
+            color: white;
+        }
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .project-card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px 20px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            text-align: center;
+            border-left: 5px solid #2c7da0;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.12);
+        }
+
+        .project-card h3 {
+            color: #1e3a5f;
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .project-card p {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .project-badge {
+            display: inline-block;
+            background: #e8f0fe;
+            color: #2c7da0;
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 20px;
+            margin-top: 12px;
+        }
+
+        .no-projects {
+            text-align: center;
+            padding: 50px;
+            background: white;
+            border-radius: 20px;
+            color: #888;
+            font-size: 18px;
+        }
+
+        .contacts-section .info-block {
+            background: white;
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .contacts-section .info-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 18px;
+        }
+
+        .contacts-section .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-icon {
+            font-size: 28px;
+            width: 60px;
+            text-align: center;
+        }
+
+        .info-text strong {
+            color: #1e3a5f;
+            display: inline-block;
+            width: 100px;
+        }
+
+        .info-text {
+            color: #333;
+        }
+
+        .back-link {
+            display: inline-block;
+            background: #2c7da0;
+            padding: 12px 32px;
+            border-radius: 40px;
+            color: white;
+            text-decoration: none;
+            margin-top: 40px;
+            transition: 0.3s;
+            font-weight: bold;
+            cursor: pointer;
+            border: none;
+        }
+
+        .back-link:hover {
+            background: #1a5a7a;
+            transform: translateY(-2px);
+        }
+
+        .footer {
+            background: #2c3e2f;
+            color: #e0e0e0;
+            text-align: center;
+            padding: 30px 20px;
+            font-size: 14px;
+            border-top: 1px solid #1e2a1f;
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        @media (max-width: 700px) {
+            .header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .spacer {
+                display: none;
+            }
+            .company-name {
+                font-size: 24px;
+            }
+            .logo {
+                width: 100px;
+                height: 70px;
+            }
+            .button-group {
+                gap: 15px;
+            }
+            .btn {
+                padding: 12px 25px;
+                font-size: 16px;
+            }
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            .contacts-section .info-item {
+                flex-direction: column;
+                text-align: center;
+                gap: 8px;
+            }
+            .info-icon {
+                width: auto;
+            }
+            .filter-buttons, .test-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <div class="logo">
+            <img src="лого.png" alt="Логотип Ренова+" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+            <div class="logo-placeholder" style="display: none;">🏗️</div>
+        </div>
+        <div class="company-name">Ренова+</div>
+        <div class="spacer"></div>
+    </div>
+
+    <div class="main-content">
+        <!-- Главная страница -->
+        <div id="home-page" class="page active">
+            <div class="home-section">
+                <h1>Добро пожаловать в Ренова+</h1>
+                <p>
+                    Мы — команда профессионалов, которая помогает обновлять и улучшать ваши пространства.<br>
+                    Строительство, ремонт, отделка, дизайн — всё под ключ. Надёжно, качественно, с душой.
+                </p>
+                <div class="button-group">
+                    <button class="btn" id="show-projects-btn">Наши проекты</button>
+                    <button class="btn" id="show-contacts-btn">Контакты и данные</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница с проектами -->
+        <div id="projects-page" class="page">
+            <div class="projects-section">
+                <h1>Наши реализованные и текущие проекты</h1>
+                
+                <!-- Панель выбора тестового набора -->
+                <div class="test-panel">
+                    <p>🧪 Тестирование алгоритма (выберите сценарий)</p>
+                    <div class="test-buttons">
+                        <button class="test-btn" data-test="test1">Тест 1: Все проекты (5 шт)</button>
+                        <button class="test-btn" data-test="test2">Тест 2: Только активные</button>
+                        <button class="test-btn" data-test="test3">Тест 3: Нет активных (все завершены)</button>
+                        <button class="test-btn" data-test="test4">Тест 4: Пустой массив</button>
+                        <button class="test-btn" data-test="test5">Тест 5: Один элемент</button>
+                    </div>
+                </div>
+                
+                <!-- Кнопки фильтрации -->
+                <div class="filter-buttons">
+                    <button class="filter-btn active" id="filter-all">Все проекты</button>
+                    <button class="filter-btn" id="filter-active">Только активные</button>
+                </div>
+                
+                <div class="projects-grid" id="projects-container">
+                    <!-- Проекты будут добавлены через JavaScript -->
+                </div>
+                <div style="text-align: center;">
+                    <button class="back-link" id="back-to-home-from-projects">← Вернуться на главную</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Страница с контактами -->
+        <div id="contacts-page" class="page">
+            <div class="contacts-section">
+                <h1>Контактные данные и реквизиты</h1>
+                <div class="info-block">
+                    <div class="info-item"><div class="info-icon">📞</div><div class="info-text"><strong>Телефон:</strong> +7 (917) 434-55-50</div></div>
+                    <div class="info-item"><div class="info-icon">✉️</div><div class="info-text"><strong>Email:</strong> info@renovap.ru</div></div>
+                    <div class="info-item"><div class="info-icon">📍</div><div class="info-text"><strong>Адрес:</strong> г. Уфа, ул. Горкина, 72, офис 206</div></div>
+                    <div class="info-item"><div class="info-icon">🕒</div><div class="info-text"><strong>Режим работы:</strong> Пн–Пт: 9:00 – 19:00, Сб: 10:00 – 15:00</div></div>
+                    <div class="info-item"><div class="info-icon">📄</div><div class="info-text"><strong>ИНН:</strong> 0274123456</div></div>
+                    <div class="info-item"><div class="info-icon">📄</div><div class="info-text"><strong>ОГРН:</strong> 1200200012345</div></div>
+                </div>
+                <div style="text-align: center;">
+                    <button class="back-link" id="back-to-home-from-contacts">← Вернуться на главную</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>© 2025 Ренова+ — Все права защищены. | г. Уфа, ул. Горкина, д. 72, офис 206</p>
+    </div>
+
+    <script>
+        // ТЕСТОВЫЕ НАБОРЫ ДАННЫХ
+        const testData = {
+            // Тест 1: 5 проектов (3 активных, 2 завершённых)
+            test1: [
+                { name: "ЖК Уфимский Кремль", address: "ул. Пархоменко, 151/2", status: "активный", desc: "Активный проект" },
+                { name: "ЖК Аркий", address: "современный квартал", status: "активный", desc: "Активный проект" },
+                { name: "ЖК Edison", address: "инновационная архитектура", status: "завершён", desc: "Сдан в 2023 г." },
+                { name: "Частный дом", address: "с. Чекано", status: "активный", desc: "Новостройка" },
+                { name: "ЖК Novaland", address: "бизнес-класс", status: "завершён", desc: "Сдан в 2024 г." }
+            ],
+            // Тест 2: те же данные (фильтр active покажет 3 проекта)
+            test2: [
+                { name: "ЖК Уфимский Кремль", address: "ул. Пархоменко, 151/2", status: "активный", desc: "Активный проект" },
+                { name: "ЖК Аркий", address: "современный квартал", status: "активный", desc: "Активный проект" },
+                { name: "ЖК Edison", address: "инновационная архитектура", status: "завершён", desc: "Сдан в 2023 г." },
+                { name: "Частный дом", address: "с. Чекано", status: "активный", desc: "Новостройка" },
+                { name: "ЖК Novaland", address: "бизнес-класс", status: "завершён", desc: "Сдан в 2024 г." }
+            ],
+            // Тест 3: все проекты со статусом "завершён" (активных нет)
+            test3: [
+                { name: "ЖК Edison", address: "инновационная архитектура", status: "завершён", desc: "Сдан в 2023 г." },
+                { name: "ЖК Novaland", address: "бизнес-класс", status: "завершён", desc: "Сдан в 2024 г." },
+                { name: "Бизнес-центр", address: "пр. Октября", status: "завершён", desc: "Сдан в 2022 г." }
+            ],
+            // Тест 4: пустой массив
+            test4: [],
+            // Тест 5: один элемент
+            test5: [
+                { name: "Частный дом", address: "с. Чекано", status: "активный", desc: "Новостройка" }
+            ]
+        };
+
+        let currentProjects = [...testData.test1];  // текущий набор проектов (по умолчанию тест1)
+        let currentFilter = "all";                  // текущий фильтр: "all" или "active"
+
+        // Функция отображения проектов с учётом фильтра
+        function renderProjects() {
+            const container = document.getElementById('projects-container');
+            if (!container) return;
+            
+            // Фильтрация
+            let filteredProjects = [];
+            if (currentFilter === "active") {
+                filteredProjects = currentProjects.filter(project => project.status === "активный");
+            } else {
+                filteredProjects = [...currentProjects];
+            }
+            
+            // Очистка контейнера
+            container.innerHTML = '';
+            
+            // Если проектов нет — выводим сообщение
+            if (filteredProjects.length === 0) {
+                container.innerHTML = '<div class="no-projects">📭 Нет проектов для отображения</div>';
+                return;
+            }
+            
+            // Отображаем проекты
+            filteredProjects.forEach(project => {
+                const card = document.createElement('div');
+                card.className = 'project-card';
+                card.innerHTML = `
+                    <h3>🏗️ ${project.name}</h3>
+                    <p>${project.address}</p>
+                    <span class="project-badge">${project.desc}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Смена тестового набора данных
+        function setTest(testId) {
+            if (testData[testId]) {
+                currentProjects = [...testData[testId]];
+                currentFilter = "all";  // сбрасываем фильтр на "все проекты"
+                updateFilterButtons();
+                renderProjects();
+            }
+        }
+
+        // Функции переключения страниц
+        function showPage(pageId) {
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+            const activePage = document.getElementById(pageId);
+            if (activePage) {
+                activePage.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Обновление активного состояния кнопок фильтра
+        function updateFilterButtons() {
+            const allBtn = document.getElementById('filter-all');
+            const activeBtn = document.getElementById('filter-active');
+            
+            if (currentFilter === "all") {
+                allBtn.classList.add('active');
+                activeBtn.classList.remove('active');
+            } else {
+                allBtn.classList.remove('active');
+                activeBtn.classList.add('active');
+            }
+        }
+
+        // Навигация
+        document.getElementById('show-projects-btn').addEventListener('click', () => {
+            // При открытии страницы проектов сбрасываем на тест 1 и фильтр "все"
+            currentProjects = [...testData.test1];
+            currentFilter = "all";
+            updateFilterButtons();
+            renderProjects();
+            showPage('projects-page');
+        });
+
+        document.getElementById('show-contacts-btn').addEventListener('click', () => {
+            showPage('contacts-page');
+        });
+
+        document.getElementById('back-to-home-from-projects').addEventListener('click', () => {
+            showPage('home-page');
+        });
+
+        document.getElementById('back-to-home-from-contacts').addEventListener('click', () => {
+            showPage('home-page');
+        });
+
+        // Обработчики фильтров
+        document.getElementById('filter-all').addEventListener('click', () => {
+            currentFilter = "all";
+            updateFilterButtons();
+            renderProjects();
+        });
+
+        document.getElementById('filter-active').addEventListener('click', () => {
+            currentFilter = "active";
+            updateFilterButtons();
+            renderProjects();
+        });
+
+        // Обработчики кнопок тестов
+        document.querySelectorAll('.test-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const testId = btn.getAttribute('data-test');
+                setTest(testId);
+            });
+        });
+
+        // Первоначальный рендер
+        renderProjects();
+    </script>
+</body>
+</html>
